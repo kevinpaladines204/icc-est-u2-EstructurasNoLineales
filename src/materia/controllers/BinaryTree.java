@@ -59,4 +59,18 @@ public class BinaryTree {
             System.out.print(node.getValue() + ", ");
         }
     }
+
+    public boolean findvalue(int value) {
+        return findvalueRecc(root, value);
+    }
+
+    private boolean findvalueRecc(Node node, int value) {
+        if (node == null) {
+            return false;
+        }
+        if (node.getValue() == value) {
+            return true;
+        }
+        return findvalueRecc(node.getleft(), value) || findvalueRecc(node.getrigth(), value);
+    }
 }

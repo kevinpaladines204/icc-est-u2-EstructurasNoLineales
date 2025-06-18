@@ -20,6 +20,20 @@ public class App {
         System.out.println();
         System.out.println("Postorder :");
         tree.imprimirPostorder();
+        System.out.println();
         
+        // Tarea 
+        // implementar un método que busque un valor en el árbol
+        System.out.println();
+        if (tree.findvalue(23)) {
+            System.out.println("El valor 23 se encuentra en el arbol.");
+        } else {
+            System.out.println("El valor 23 no se encuentra en el arbol.");
+        }
+        if (tree.findvalue(77)) {
+            System.out.println("El valor 77 se encuentra en el arbol.");
+        } else {
+            System.out.println("El valor 77 no se encuentra en el arbol.");
+        }
     }
 }
