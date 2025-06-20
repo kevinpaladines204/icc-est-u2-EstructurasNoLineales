@@ -2,7 +2,8 @@ package materia.controllers;
 import materia.models.Node;
 
 public class BinaryTree {
-    private Node root; 
+    private Node root;
+    private int peso = 0;
     
     public BinaryTree(){
         this.root = null;
@@ -13,6 +14,7 @@ public class BinaryTree {
     }
     private Node insertRecc(Node padre, int value){
         if(padre == null){
+            peso++;
             return new Node(value);   
         }
         if(value <= padre.getValue()){
@@ -37,7 +39,7 @@ public class BinaryTree {
     }
 
     public void imprimirInorder() {
-    imprimirInorderRecc(root);  
+        imprimirInorderRecc(root);  
     }
 
     private void imprimirInorderRecc(Node node) {
@@ -49,7 +51,7 @@ public class BinaryTree {
     }
 
     public void imprimirPostorder() {
-    imprimirPostorderRecc(root);
+        imprimirPostorderRecc(root);
     }
 
     private void imprimirPostorderRecc(Node node) {
@@ -71,6 +73,84 @@ public class BinaryTree {
         if (node.getValue() == value) {
             return true;
         }
-        return findvalueRecc(node.getleft(), value) || findvalueRecc(node.getrigth(), value);
+        if(value < node.getValue()){
+            return findvalueRecc(node.getleft(), value);
+        }else{
+            return findvalueRecc(node.getrigth(), value);
+        }
+    }
+
+    public int getHeightRecc(){
+        return getHeightRecc(root);
+    }
+
+    public int getHeightRecc(Node node){
+        if (node == null) {
+            return 0;
+        }
+        int leftHeight = getHeightRecc(node.getleft());
+        int rightHeight = getHeightRecc(node.getrigth());
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    public void InorderConAltura(){
+        InorderConAlturaRecc(root);
+        System.out.println();
+    }
+
+    private void InorderConAlturaRecc(Node node) {
+        if (node != null) {
+            InorderConAlturaRecc(node.getleft());
+            int altura = getHeightRecc(node);
+            System.out.print(node.getValue() + "(h=" + altura + "), ");
+            InorderConAlturaRecc(node.getrigth());
+        }
+    }
+
+    public void InorderConBalance() {
+        InorderConBalanceRecc(root);
+        System.out.println();
+    }
+
+    private void InorderConBalanceRecc(Node node) {
+        if (node != null) {
+            InorderConBalanceRecc(node.getleft());
+            int bf = getHeightRecc(node.getleft()) - getHeightRecc(node.getrigth());
+            System.out.print(node.getValue() + "(bf=" + bf + "), ");
+            InorderConBalanceRecc(node.getrigth());
+        }
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public boolean Equilibrado() {
+        return EquilibradoRecc(root);
+    }
+
+    private boolean EquilibradoRecc(Node node) {
+        if (node == null) return true;
+        int leftHeight = getHeightRecc(node.getleft());
+        int rightHeight = getHeightRecc(node.getrigth());
+        if (Math.abs(leftHeight - rightHeight) > 1) return false;
+        return EquilibradoRecc(node.getleft()) && EquilibradoRecc(node.getrigth());
+    }
+
+    public void NodosDesbalanceados() {
+        System.out.print("Nodos desbalanceados: ");
+        NodosDesbalanceadosRecc(root);
+        System.out.println();
+    }
+
+    private void NodosDesbalanceadosRecc(Node node) {
+        if (node != null) {
+            NodosDesbalanceadosRecc(node.getleft());
+            int fe = getHeightRecc(node.getleft()) - getHeightRecc(node.getrigth());
+            if (Math.abs(fe) > 1) {
+                System.out.print(node.getValue() + "(fE=" + fe + "), ");
+            }
+            NodosDesbalanceadosRecc(node.getrigth());
+        }
     }
 }
