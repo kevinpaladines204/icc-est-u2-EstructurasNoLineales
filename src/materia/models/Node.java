@@ -4,6 +4,7 @@ public class Node {
     private int value;
     private Node left;
     private Node rigth;
+    private int Height;
 
     @Override
     public String toString() {
@@ -14,8 +15,11 @@ public class Node {
         this.value = value;
         this.left = null;
         this.rigth = null;
+        this.Height= 1;
+
     }
 
+    
     public int getValue() {
         return value;
     }
@@ -38,5 +42,13 @@ public class Node {
 
     public void setrigth(Node der) {
         this.rigth = der;
+    }
+
+    public int getHeight() {
+        return Height;
+    }
+
+    public void setHeight(int height) {
+        Height = height;
     }
 }
